@@ -83,6 +83,6 @@ RUN echo "  ForwardAgent yes" >> ~/.ssh/config
 RUN echo "Host github.com" >> ~/.ssh/config
 RUN echo "  HostName github.com" >> ~/.ssh/config
 RUN echo "  User git" >> ~/.ssh/config
-RUN echo "  ProxyCommand nc -X connect -x proxyvipfmcc.nb.ford.com:83 %h %p" > ~/.ssh/config
+RUN echo "  ProxyCommand nc -X connect -x proxyvipfmcc.nb.ford.com:83 %h %p" >> ~/.ssh/config
 
 
