@@ -14,7 +14,7 @@ ADD scripts/install_aws_cli.sh /opt/scripts/
 
 # base packages
 RUN apt-get update && \
-    apt-get install -yy curl file unzip git ruby make bzip2 && \
+    apt-get install -yy curl file unzip git ruby make bzip2 netcat && \
     gem install bosh_cli
 
 # bosh-init/create-env deps
@@ -71,3 +71,18 @@ RUN /opt/scripts/install_aws_cli.sh
 # Add a user for running things as non-superuser
 
 RUN useradd -ms /bin/bash worker
+
+# Netcat for GC
+
+RUN mkdir ~/.ssh
+RUN touch ~/.ssh/config
+RUN chmod 700 ~/.ssh
+RUN chmod 640 ~/.ssh/config
+RUN echo "Host *
+  ForwardAgent yes
+Host github.com
+  HostName github.com
+  User git
+  ProxyCommand nc -X connect -x proxyvipfmcc.nb.ford.com:83 %h %p" > ~/.ssh/config
+
+
